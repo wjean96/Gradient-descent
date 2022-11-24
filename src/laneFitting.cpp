@@ -6,7 +6,7 @@
 #include <cstring>
 
 #include "struct_type.hpp"
-
+//testing
 class GradientDescent{
     private:
         ros::NodeHandle nh;

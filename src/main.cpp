@@ -48,14 +48,11 @@ class GradientDescent{
         float32_t aStep = 0;
         float32_t bStep = 0;
         
-        GradientDescent(float alphaStep, float betaStep){
+        GradientDescent(void){
             srand((unsigned) time(NULL));
 
             randomPoint_sub = h.subscribe ("input", 1, &GradientDescent::RandomPointCallBack, this);
             marker_pub = nh.advertise<visualization_msgs::Marker>("lane", 1);
-
-            aStep = alphaStep;
-            bStep = betaStep;
 
             for(int32_t i=0; i<2; i++){
                 linearCoeff[i] = (float)(rand() % 10);
@@ -70,8 +67,6 @@ class GradientDescent{
             //printf("nCnt : %d\n",nCnt);
             nCnt++;
             ST_RAMDOMPOINT st_randomPoint;
-
-
 
             sensor_msgs::PointCloud2ConstIterator<float> ptr_x(*msg, "x");
             sensor_msgs::PointCloud2ConstIterator<float> ptr_y(*msg,  "y");
@@ -192,7 +187,7 @@ int32_t main (int32_t argc, char** argv){
 
     ros::init(argc, argv, "GradientDescent");    
 
-    GradientDescent gradientDescent(0.0001, 0.0002);
+    GradientDescent gradientDescent();
     
     ros::spin();
 

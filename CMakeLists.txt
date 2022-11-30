@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(capstone_WJJ)
-
+project(realtime_optimization)
 
 find_package(catkin REQUIRED COMPONENTS
-  pcl_ros
   roscpp
+  rospy
   std_msgs
   message_generation
   visualization_msgs
@@ -12,24 +11,33 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package(Boost REQUIRED COMPONENTS system)
 
-
 generate_messages(
   DEPENDENCIES
   std_msgs
 )
 
-
 catkin_package(
-#  INCLUDE_DIRS include
- CATKIN_DEPENDS pcl_ros roscpp std_msgs
+  INCLUDE_DIRS include
+#  LIBRARIES optimization
+  CATKIN_DEPENDS roscpp rospy std_msgs
+#  DEPENDS system_lib
 )
 
+
+
+###########
+## Build ##
+###########
+
+## Specify additional locations of header files
+## Your package locations should be listed before other locations
 include_directories(
- include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(GradientDescent src/laneFitting.cpp)
-target_link_libraries(GradientDescent
+add_executable(op_realtime_node src/main.cpp)
+target_link_libraries(op_realtime_node
   ${catkin_LIBRARIES}
 )
+
